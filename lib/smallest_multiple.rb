@@ -1,12 +1,18 @@
 def smallest_multiple(input)
-  counter = 1
-  lcm = 0
+  smallest_multiple = 1
 
-  (1...input).each do |n|
-    remainder = counter % n
-    lcm = counter if remainder == 0
-    return false if remainder != 0
+    (2..input).each do |divisor|
+      smallest_multiple *= divisor / gcd(smallest_multiple, divisor)
+    end
+
+  smallest_multiple
+end
+
+def gcd(smallest_multiple, divisor)
+  while divisor > 0
+    smallest_multiple %= divisor
+    return divisor if smallest_multiple == 0
+    divisor %= smallest_multiple
   end
-  
-  lcm
+  smallest_multiple
 end
